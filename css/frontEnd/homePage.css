@@ -1,0 +1,42 @@
+/* 公共部分 */
+body {
+    /*font: ;*/
+}
+
+/* 非公共部分 */
+/* banner图 */
+.banner {
+    position: relative;
+
+    height: 100vh;
+
+    overflow: hidden;
+}
+.banner-content {
+
+}
+.banner-content .banner-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url("../../images/frontEnd/banner1.jpg");
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.banner-content .chooseCourse-warp {
+    position: absolute;
+    bottom: 50%;
+    right: 50px;
+
+    transform: translateY(50%);
+}
+.banner-content .chooseCourse-btn {
+    width: 120px;
+    letter-spacing: .2cm;
+}
+
