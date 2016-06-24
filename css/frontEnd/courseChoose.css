@@ -1,0 +1,68 @@
+/* 公共样式 */
+body {
+    font: 14px/1.5 "PingFang SC", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+    color: #14191e;
+}
+a, a:hover, a:focus {
+    outline: none;
+    text-decoration: none;
+}
+
+.main {
+    min-height: 550px;
+}
+/* 顶部分类导航 */
+.course-nav-warp {
+
+}
+.course-nav-item {
+    position: relative;
+
+    padding: 15px 0;
+    border-bottom: 1px solid #edf1f2;
+}
+.course-nav-title {
+    border-bottom: 1px solid #d0d6d9;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #09100d;
+}
+.course-nav-item .title {
+    float: left;
+
+    width: 56px;
+    height: 20px;
+    line-height: 20px;
+
+    text-align: right;
+    font-size: 14px;
+    color: #787d82;
+}
+.course-nav-item .content-warp {
+    margin-left: 45px;
+}
+.course-nav-item .content-warp .content-item {
+    display: inline-block;
+    margin: 0 15px;
+}
+.course-nav-item .content-warp a {
+    display: block;
+
+    height: 20px;
+    line-height: 20px;
+
+    padding: 0 6px;
+
+    font-size: 12px;
+}
+.content-item a:hover {
+    color: #ff5c6f;
+}
+.content-item a:focus {
+    color: #ff0509;
+}
+.content-item.on a {
+    background: #6595EF;
+    color: #fff;
+}
