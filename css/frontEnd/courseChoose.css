@@ -67,7 +67,7 @@ a, a:hover, a:focus {
     color: #fff;
 }
 /* 工具栏 */
-.toolbar-left {
+.course-toolbar .toolbar-left {
     position: relative;
 
     height: 40px;
@@ -78,7 +78,20 @@ a, a:hover, a:focus {
     border-top: 1px solid #d0d6d9;
     font-size: 12px;
 }
+.toolbar-left a {
+    margin: 0 20px;
+    line-height: 40px;
+}
 /* 课程列表 */
+.course-list {
+    margin-top: 30px;
+}
+.course-list .course-name {
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    font-size: 16px;
+}
 .course-list .course-item {
     -webkit-transition: box-shadow 0.3s;
     -moz-transition: box-shadow 0.3s;
@@ -92,5 +105,5 @@ a, a:hover, a:focus {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .course-item .visits {
-
+    font-size: 12px;
 }
