@@ -66,3 +66,31 @@ a, a:hover, a:focus {
     background: #6595EF;
     color: #fff;
 }
+/* 工具栏 */
+.toolbar-left {
+    position: relative;
+
+    height: 40px;
+    margin-top: -1px;
+    padding-right: 15px;
+
+    background-color: #f9f9f9;
+    border-top: 1px solid #d0d6d9;
+    font-size: 12px;
+}
+/* 课程列表 */
+.course-list .course-item {
+    -webkit-transition: box-shadow 0.3s;
+    -moz-transition: box-shadow 0.3s;
+    -ms-transition: box-shadow 0.3s;
+    -o-transition: box-shadow 0.3s;
+    transition: box-shadow 0.3s;
+}
+.course-list .course-item:hover {
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.course-item .visits {
+
+}
