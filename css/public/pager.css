@@ -1,0 +1,25 @@
+/* 下方的分页 */
+.ne-pager {
+}
+.ne-pager .pagination {
+    float: left;
+    margin-left: 25%;
+}
+.ne-pager .pagination > li {
+    display: inline-block;
+}
+.ne-pager .pageNumInfo {
+    float: right;
+
+    margin-top: 26px;
+    margin-right: 20px;
+
+    font-size: 14px;
+    letter-spacing: 4px;
+
+    color: #337AB7;
+}
+.ne-pager .curPage{
+    border: none;
+    margin: 1px;
+}

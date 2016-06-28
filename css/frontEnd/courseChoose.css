@@ -18,10 +18,12 @@ a, a:hover, a:focus {
 .course-nav-item {
     position: relative;
 
-    padding: 15px 0;
+    padding-top: 15px;
+    padding-bottom: 6px;
     border-bottom: 1px solid #edf1f2;
 }
 .course-nav-title {
+    padding: 15px 0;
     border-bottom: 1px solid #d0d6d9;
 
     font-size: 16px;
@@ -84,15 +86,12 @@ a, a:hover, a:focus {
 }
 /* 课程列表 */
 .course-list {
-    margin-top: 30px;
-}
-.course-list .course-name {
-    margin-top: 5px;
-    margin-bottom: 10px;
-
-    font-size: 16px;
+    margin-top: 15px;
 }
 .course-list .course-item {
+    padding-top: 15px;
+    padding-bottom: 15px;
+
     -webkit-transition: box-shadow 0.3s;
     -moz-transition: box-shadow 0.3s;
     -ms-transition: box-shadow 0.3s;
@@ -104,6 +103,28 @@ a, a:hover, a:focus {
     -moz-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.course-item .visits {
-    font-size: 12px;
+.course-item .course-item-caption {
+    margin-top: 10px;
+
+    /*font-family:  "KaiTi", "SimSun", "Microsoft YaHei";*/
+    font-family: 'PingFang SC', Helvetica, 'Helvetica Neue', 微软雅黑, Tahoma, Arial, sans-serif;
+    color: #0a1d0b;
 }
+.course-item-caption .line {
+    margin-top: 5px;
+
+    white-space: nowrap;
+}
+.course-item-caption .course-name{
+    font-size: 16px;
+}
+.course-item-caption .course-teacher {
+
+}
+.course-item-caption .course-date {
+
+}
+.course-item-caption .course-visits {
+    float: right;
+}
+
