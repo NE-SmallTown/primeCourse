@@ -3,23 +3,42 @@
     function createPager(pagerOps) {
         // 构造函数
         function NE_Pager() {
-
+            this._init();
         }
+
+        // 添加相关字段
+        NE_Pager.prototype.pager_wrap = null; // 在分页栏放在页面哪个dom中
+        NE_Pager.prototype.ajaxOps = {  // 点击页码时ajax的配置参数
+            url : null, // 请求的url
+            data: null, // 请求时需要发送的数据
+            callback: null // 点击页码后的回调函数
+        };
+        NE_Pager.prototype.curPage = 1; // 设置当前页
+        NE_Pager.prototype.oldPage = 1; // 设置翻页之前的页，如当前在第2页，点击第3页，则点击之后curPage为3，oldPage为2
+        NE_Pager.prototype.totalLength = null; // 设置总共有多少条记录
+        NE_Pager.prototype.pages = null; // 设置总共的页数
+        NE_Pager.prototype.showedPagesButtonNum = null; // 分页栏展示的页码个数
 
         // 检测传入的pagerOps是否有效
         NE_Pager.prototype._checkParams = function() {
+            var i, j; // 循环变量
+            // 写一个函数funcion  xxx(obj1, obj2)，判断obj2中所有的属性是否都在obj1中有对应的，没有的话抛异常
+            // 检测是否
+            for(i in pagerOps) {
+                if(!(i in this)) {
+                    throw new Error('has not param \"' + i + '\"!');
+                } else if(!Array.isArray(i) && typeof i === 'object') {
 
+                }
+            }
         }
 
         // 初始化分页栏
         NE_Pager.prototype._init = function() {
-            // 设置相关字段值
-            NE_Pager.prototype.pager_wrap = $(pagerOps.pager_wrap); // 在分页栏放在页面哪个dom中
-            NE_Pager.prototype.curPage = 1; // 设置当前页
-            NE_Pager.prototype.oldPage = 1; // 设置翻页之前的页，如当前在第2页，点击第3页，则点击之后curPage为3，oldPage为2
-            NE_Pager.prototype.totalLength = 1; // 设置总共有多少条记录
-            NE_Pager.prototype.pages = 1; // 设置总共的页数
-            NE_Pager.prototype.showedPagesButtonNum = 10; // 分页栏展示的页码个数
+            // 检测用户传入的参数是否合法
+            this._checkParams();
+            // 根据用户传入的参数合并字段值
+            $.extend(true, NE_Pager.prototype, pagerOps);          
 
             // 以下为构造分页栏部分
             var pages = this.pages;
@@ -60,6 +79,42 @@
             ne_pager.append(pagination);
             ne_pager.append(pageNumInfo);
             this.ne_pager.append(ne_pager);
+        }
+
+        // 绑定分页栏点击事件
+        NE_Pager.prototype._bindPagerEvent = function() {
+            var self = this;
+
+            $('body')
+            .off('click', '.ne-pager .pagination > li > a[data-value]')
+            .on('click', '.ne-pager .pagination > li > a[data-value]', function(event) {
+                var toPage = Number($(this).attr('data-value')),
+                    tableSetting;
+
+                if(toPage == self.curPage || toPage < 1 || toPage > pages) { // 如果请求的就是当前页或者超出范围，则不做出响应
+                    return ;
+                }
+
+                // 请求数据
+                $.ajax({
+                    url: self.ajaxOps.url,
+                    type: 'get',
+                    dataType: 'json',
+                    data: self.ajaxOps.data,
+                })
+                .done(function(res) {
+                    console.log("success");
+
+                    self._updatePager(); // 请求成功后更新分页栏
+
+                    slef.ajaxOps.callback(); // 调用回调函数
+                })
+                .fail(function(xhr, textStatus, errorThrown) {
+                    console.log("error:" + errorThrown);
+                });
+            });
+
+            return true; // 事件绑定完毕
         }
 
         // 更新分页栏 (点击页码后触发 )
@@ -192,35 +247,6 @@
                     pager_ul.css('margin-left', '30%');
                     break;
             }
-        }
-
-        // 绑定分页栏点击事件
-        NE_Pager.prototype._bindPagerEvent = function() {
-            $('body')
-            .off('click', '.neTable-warp .ne-pager .pagination > li > a[data-value]')
-            .on('click', '.neTable-warp .ne-pager .pagination > li > a[data-value]', function(event) {
-                var toPage = Number($(this).attr('data-value')),
-                    tableOps = ops,
-                    curPage = tableOps.curPage,
-                    tableSetting;
-
-                if(toPage == curPage || toPage < 1 || toPage > pages) { // 如果请求的就是当前页或者超出范围，则不做出响应
-                    return ;
-                } else {
-                    tableSetting = {
-                        url       : tableOps.url + "_" + ops.QUERY_URL,
-                        "curPage" : toPage
-                    };
-                }
-
-                // 更新表格
-                ajax_neTable(tableSetting, function(returnedJsonObj) {
-                    updateNE_Table(returnedJsonObj);
-                    updateNE_TablePager(returnedJsonObj);
-                });
-            });
-
-            return true; // 事件绑定完毕
         }
 
         return new NE_Pager();
