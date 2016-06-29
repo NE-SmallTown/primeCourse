@@ -1,4 +1,6 @@
-(function ($, global) {      
+(function ($, global) {  
+    'use strict'
+
     // 创建分页栏
     function createPager(pagerOps) {
         // 构造函数
@@ -19,17 +21,32 @@
         NE_Pager.prototype.pages = null; // 设置总共的页数
         NE_Pager.prototype.showedPagesButtonNum = null; // 分页栏展示的页码个数
 
+        // 以下为内部方法
         // 检测传入的pagerOps是否有效
         NE_Pager.prototype._checkParams = function() {
-            var i, j; // 循环变量
-            // 写一个函数funcion  xxx(obj1, obj2)，判断obj2中所有的属性是否都在obj1中有对应的，没有的话抛异常
-            // 检测是否
-            for(i in pagerOps) {
-                if(!(i in this)) {
-                    throw new Error('has not param \"' + i + '\"!');
-                } else if(!Array.isArray(i) && typeof i === 'object') {
+            // 检查pagerOps是否为对象
+            if(!$.isPlainObject(pagerOps)) {
+                throw new Error('args must be object!');
+            }
+            // pagerOps中的参数是否在NE_Pager .prototype都有对应的属性
+            if(!checkObjParamsConsistent(pagerOps, NE_Pager.prototype)) {
+                throw new Error('arguments error, Please consult the api!');
+            }
 
+            // 检查obj2中的属性是否在obj1中都存在,是返回true,否返回false
+            function checkObjParamsConsistent(obj1, obj2) {
+                var i;
+                for(i in obj2) {
+                    if(!obj1[i]) {
+                        return false;
+                    } else if(typeof obj1[i] !== typeof obj2[i]) {
+                        return false;
+                    } else if($.isPlainObject(obj2[i])) {
+                        checkObjParamsConsistent(obj1[i], obj2[i]);
+                    }
                 }
+
+                return true;
             }
         }
 
@@ -78,7 +95,7 @@
 
             ne_pager.append(pagination);
             ne_pager.append(pageNumInfo);
-            this.ne_pager.append(ne_pager);
+            this.pager_wrap.append(ne_pager);
         }
 
         // 绑定分页栏点击事件

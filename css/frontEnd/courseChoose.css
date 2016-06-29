@@ -86,6 +86,7 @@ a, a:hover, a:focus {
 }
 /* 课程列表 */
 .course-list {
+    min-height: 600px;
     margin-top: 15px;
 }
 .course-list .course-item {
