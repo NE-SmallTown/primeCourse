@@ -2,24 +2,21 @@
     'use strict'
 
     // 创建分页栏
-    function createPager(pagerOps) {
+    $.fn.createPager = function (pagerOps) {
         // 构造函数
         function NE_Pager() {
             this._init();
         }
 
         // 添加相关字段
-        NE_Pager.prototype.pager_wrap = null; // 在分页栏放在页面哪个dom中
         NE_Pager.prototype.ajaxOps = {  // 点击页码时ajax的配置参数
-            url : null, // 请求的url
-            data: null, // 请求时需要发送的数据
-            callback: null // 点击页码后的回调函数
+            ajaxFunc: null, // 用户自定义的点击页码时的ajax函数
+            ajaxFuncArgs: null // ajax函数的参数
         };
         NE_Pager.prototype.curPage = 1; // 设置当前页
         NE_Pager.prototype.oldPage = 1; // 设置翻页之前的页，如当前在第2页，点击第3页，则点击之后curPage为3，oldPage为2
-        NE_Pager.prototype.totalLength = null; // 设置总共有多少条记录
         NE_Pager.prototype.pages = null; // 设置总共的页数
-        NE_Pager.prototype.showedPagesButtonNum = null; // 分页栏展示的页码个数
+        NE_Pager.prototype.showedPagesButtonNum = 10; // 分页栏展示的页码个数
 
         // 以下为内部方法
         // 检测传入的pagerOps是否有效
@@ -67,7 +64,6 @@
                 prevPageTag  = $('<li><a class="prev" data-value="' + (curPage - 1) + '"' + '>上一页</a></li>'),
                 nextPageTag  = $('<li><a class="next" data-value="' + (curPage + 1) + '"' + '>下一页</a></li>'),
                 lastPageTag  = $('<li><a class="last" data-value="' + pages + '"' + '>尾页</a></li>'),
-                pageNumInfo  = $('<div class="pageNumInfo">共有' + this.totalLength + '条记录</div>'),
                 i; // 循环变量
 
             // 当前在第一页，则上一页和首页按钮不能点击
@@ -94,8 +90,7 @@
             pagination.append(lastPageTag);
 
             ne_pager.append(pagination);
-            ne_pager.append(pageNumInfo);
-            this.pager_wrap.append(ne_pager);
+            this.append(ne_pager);
         }
 
         // 绑定分页栏点击事件
@@ -105,37 +100,30 @@
             $('body')
             .off('click', '.ne-pager .pagination > li > a[data-value]')
             .on('click', '.ne-pager .pagination > li > a[data-value]', function(event) {
-                var toPage = Number($(this).attr('data-value')),
-                    tableSetting;
-
+                var toPage = Number($(this).attr('data-value'));
                 if(toPage == self.curPage || toPage < 1 || toPage > pages) { // 如果请求的就是当前页或者超出范围，则不做出响应
                     return ;
                 }
 
+                self.showedPagesButtonNum = self.showedPagesButtonNum > pages ? pages : self.showedPagesButtonNum; // 更新分页栏展示的页码个数
+                self.oldPage = self.curPage; // 更新oldPage
+                self.curPage = tableSetting.curPage; // 更新curPage
+
                 // 请求数据
-                $.ajax({
-                    url: self.ajaxOps.url,
-                    type: 'get',
-                    dataType: 'json',
-                    data: self.ajaxOps.data,
-                })
-                .done(function(res) {
-                    console.log("success");
+                // 如果用户有定义ajax函数,则调用
+                if(self.ajaxOps.ajaxFunc) {
+                    self.ajaxOps.ajaxFunc(self.ajaxOps.ajaxFuncArgs);
+                }
 
-                    self._updatePager(); // 请求成功后更新分页栏
-
-                    slef.ajaxOps.callback(); // 调用回调函数
-                })
-                .fail(function(xhr, textStatus, errorThrown) {
-                    console.log("error:" + errorThrown);
-                });
+                // 更新分页栏
+                self.updatePager();
             });
 
             return true; // 事件绑定完毕
         }
 
         // 更新分页栏 (点击页码后触发 )
-        NE_Pager.prototype._updatePager = function() {
+        NE_Pager.prototype.updatePager = function() {
             var pager_ul_li = neTable_warp.find('.ne-pager ul li'),
                 oldPage = this.oldPage,
                 showedPagesButtonNum = this.showedPagesButtonNum,
@@ -155,8 +143,8 @@
                     }
                 };
 
-            // 去掉点击之前的页码具有的属性，如现在是第一页，点击第二页，则来有curPage这个class
-            // 的为data-value为1的标签，现在当前页变为2，那么这个标签的class应该去掉
+            // 去掉点击之前的页码具有的属性，如现在是第一页，点击第二页，则去掉有curPage这个class
+            // 的data-value为1的标签，现在当前页变为2，那么这个标签的class应该去掉
             prevATag.removeAttr('onclick').parent().removeClass('disabled');
             nextATag.removeAttr('onclick').parent().removeClass('disabled');
             pager_ul_li.find('a[data-value="' + oldPage + '"]').removeAttr('onclick').
