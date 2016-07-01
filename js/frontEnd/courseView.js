@@ -1,12 +1,19 @@
 (function ($, global) {
-	//设置AJAX的全局默认选项
-    $.ajaxSetup({
-        type: "get",
-        dataType: "json",
-        error: function(jqXHR, textStatus, errorMsg){
-            console.log('status: ' + textStatus + ' msg: ' + errorMsg);
-        }
-    });
+	// 一些需要初始化的配置
+	(function () {
+		new WOW().init(); // 初始化WOW.js
+	}());
+
+	// 设置AJAX的全局默认选项
+	(function() {
+		$.ajaxSetup({
+			type: "get",
+			dataType: "json",
+			error: function(jqXHR, textStatus, errorMsg){
+				console.log('status: ' + textStatus + ' msg: ' + errorMsg);
+			}
+		});
+	}());
 
 	// 通用变量，便于管理
 	var URL_LIST = {
@@ -32,7 +39,6 @@
     		console.log("get courseDetail success");
 
     		courseDetailData = detailData; // 赋值给外部变量,其他地方会用到
-
     		
     	});   	
     }());
