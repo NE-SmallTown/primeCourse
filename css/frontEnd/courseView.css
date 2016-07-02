@@ -1,10 +1,18 @@
-/* 公共样式 */
+/* 公共样式 */  
 body {
     font: 14px/1.5 "PingFang SC", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
 }
 a, a:hover, a:focus {
+    color: inherit;
     outline: none;
     text-decoration: none;
+    cursor: pointer;
+}
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
 }
 .nav > li > a:hover, .nav > li > a:focus {
 	background-color: inherit;
@@ -12,7 +20,8 @@ a, a:hover, a:focus {
 
 /* 头部 */
 .header-wrap {
-	height: 50px;
+    min-width: 1200px;
+	height: 52px;
 
     background-color: #fff;
 }
@@ -31,6 +40,8 @@ a, a:hover, a:focus {
 	letter-spacing: .3cm;
 }
 .nav > li {
+    float: left;
+
 	margin-left: 140px;
 }
 .nav > li > a:hover, .nav > li > a:active {
@@ -61,6 +72,20 @@ a, a:hover, a:focus {
     margin-left: 30px;
     border-top: 1px solid #4260A7;
 }
+.banner-item .content {
+    position: relative;
+    width: 50%;
+    
+    margin: 10px auto 0;
+
+    text-align: left;
+}
+.seffect {
+    position: absolute;
+
+    background-repeat: no-repeat;
+    background-size: contain;
+}
 /* 首屏 */
 .videoContainer {
     position: relative;
@@ -84,17 +109,85 @@ a, a:hover, a:focus {
 	border-left: 2000px solid rgba(0, 0, 0, .45);
 }
 /* 课程简介 */
-.courseSynopsis {
-    margin-top: 20px;
+.seffect-ci-01 {
+    width: 200px;
+    height: 300px;
+    top: 200px;
+    left: 100px;
 
+    background-image: url("../../images/frontEnd/5719t45dfs3245tg0338-240-135.jpg");
+}
+.courseIntro {
     text-align: center;
 }
 /* 课程动态 */
+.seffect-cs-01 {
+    width: 120px;
+    height: 240px;
+    right: 100px;
+    top: 100px;
+
+    background-image: url("../../images/frontEnd/5719t45dfs3245tg0338-2650-135.jpg");
+}
 .courseSituation {
     text-align: center;
 }
+.courseSituation .cs-list-wrap {
+    letter-spacing: .05cm;
+}
+.courseSituation .cs-list-wrap li {
+    line-height: 30px;
+}
+.courseSituation .cs-list-wrap li::before{
+    display: inline-block;
+    content: "";
+    width: 5px;
+    height: 5px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    border-radius: 50%;
+    border: 1px solid rgba(63, 82, 144, 0.67);
+}
+.courseSituation .date {
+    float: right;
+
+    letter-spacing: .05cm;
+}
 /* 课程资源 */
+.seffect-cr-01 {
+    width: 120px;
+    height: 240px;
+    right: 50%;
+    top: 300px;
+
+    transform: translateX(50%);
+
+    background-image: url("../../images/frontEnd/139t45dfs3245tg0338-2330-1356.jpg");
+}
 .courseResource {
+    text-align: center;
+}
+.courseResource .item {
+    display: inline-block;
+
+    text-align: center;
+}
+.courseResource .item img {
+    width: 300px;
+    height: 180px;
+
+    margin-left: 25px;
+}
+.courseResource .item .imgDesc {
+    margin-left: 25px;
+    margin-top: 10px;
+
+    letter-spacing: .03cm;
+}
+
+/* 底部 */
+.footer {
+    font-family: "serif";
     text-align: center;
 }
 

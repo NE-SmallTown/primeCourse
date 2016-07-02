@@ -7,8 +7,11 @@ html, body {
     height: 100%;
 }
 .banner .banner-item {
-    overflow: hidden;
+	position: relative;
 
+    overflow: hidden;
+	
+	margin-top: 20px;
 	height: 100%;
 }
 

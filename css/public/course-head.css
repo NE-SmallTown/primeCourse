@@ -1,0 +1,32 @@
+/* 头部 */
+.header-wrap {
+    min-width: 1200px;
+    height: 52px;
+
+    background-color: #fff;
+}
+.header-wrap a {
+    color: #2DC2E6;
+}
+.header-wrap .title {
+    float: left;
+
+    line-height: 50px;
+    margin-left: 30px;
+
+    font-size: 24px;
+    font-family: "KaiTi";
+    color: #2DC2E6;
+    letter-spacing: .3cm;
+}
+.nav > li {
+    float: left;
+
+    margin-left: 140px;
+}
+.nav > li > a:hover, .nav > li > a:active {
+    border-bottom: 2px solid #48acd7;
+
+    color: #2182CA;
+    cursor: pointer;
+}
