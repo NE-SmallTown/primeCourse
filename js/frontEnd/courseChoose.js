@@ -120,7 +120,7 @@
                         // 显示数据
                         var $course_list = $('.course-list').empty(),
                             cp = courseList_ops,
-                            course_list_row_len = Math.floor($course_list.length / cp.PERROW_SHOWEDNUM); // 列表的行数
+                            course_list_row_len = Math.floor($course_list.length / cp.PERROW_SHOWEDNUM), // 列表的行数
                             $course_list_row, // 每一行的元素
                             $course_list_item, // 每一个元素
                             i, j, k; // 循环变量
@@ -133,6 +133,7 @@
                             // 创建列
                             for(j = 0; j < cp.PERROW_SHOWEDNUM; j++, k++) {
                                 $course_list_item = $(cp.createItem({
+                                    id: courseListData.list[k].id,
                                     imgUrl: courseListData.list[k].imageUrl,
                                     name: courseListData.list[k].name,
                                     teacher: courseListData.list[k].teacherName,

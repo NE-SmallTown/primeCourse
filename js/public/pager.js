@@ -55,7 +55,7 @@
             $.extend(true, NE_Pager.prototype, pagerOps);          
 
             // 以下为构造分页栏部分
-            var pages = this.pages;
+            var pages = this.pages,
                 curPage = this.curPage;                          
             var ne_pager = $('<div class="ne-pager clearfix"></div>'),
                 pagination = $('<ul class="pagination"></ul>'),

@@ -24,7 +24,7 @@
 		}()),
         createBody = function() { // 请求首页所需数据成功后调用
             /*var cs_list = courseDetailData.xxxx,
-                $cs_list_ul = $('<ul class="clearfix"></ul>');
+                $cs_list_ul = $('<ul class="clearfix"></ul>'),
                 cs_list_li,
                 i;
 
@@ -36,12 +36,12 @@
             for(i = 0; i < cs_list.length; i++) {
                 cs_list_li = '<li>' +
                                 '<a>' + cs_list[i].xxx + '</a>' +
-                                '<span class="date">' + cs_list[i].xxx '</span>' +
+                                '<span class="date">' + cs_list[i].xxx + '</span>' +
                              '</li>';
 
                 $cs_list_ul.append(cs_list_li);
             }
-            $('.courseSituation .cs-list-wrap').append(cs_list_ul);*/
+            $('.courseSituation .cs-list-wrap').append($cs_list_ul);*/
         },
 		createFooter = (function() { // 创建界面底部内容
 			$('.footer').load('courseView-footer.html');

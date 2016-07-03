@@ -1,0 +1,11 @@
+.courseSituation .cs-list-wrap {
+    letter-spacing: .05cm;
+}
+.courseSituation .cs-list-wrap li {
+    line-height: 30px;
+}
+.courseSituation .date {
+    float: right;
+
+    letter-spacing: .05cm;
+}

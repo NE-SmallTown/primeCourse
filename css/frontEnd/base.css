@@ -1,0 +1,92 @@
+/* 公共样式 */
+body {
+    font: 14px/1.5 "PingFang SC", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+}
+.main {
+    min-height: 700px;
+    margin-top: 100px;
+}
+a, a:hover, a:focus {
+    color: inherit;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: inherit;
+}
+/* 侧边栏 */
+.sidebar {
+    float: left;
+
+    text-align: center;
+}
+.sidebar ul {
+    width: 200px;
+}
+.sidebar-item {
+    padding-bottom: 40px;
+
+    background-color: rgba(0, 0, 0, 0.03);
+}
+.sidebar-item .sidebar-item-title {
+    font-size: 18px;
+
+    background: -webkit-linear-gradient(top, rgba(214, 97, 97, 0.75), #EF4A4A); /* Safari 5.1 - 6 */
+    background: -o-linear-gradient(bottom, rgba(214, 97, 97, 0.75), #EF4A4A); /* Opera 11.1 - 12*/
+    background: -moz-linear-gradient(bottom, rgba(214, 97, 97, 0.75), #EF4A4A); /* Firefox 3.6 - 15*/
+    background: linear-gradient(to bottom, rgba(214, 97, 97, 0.75), #EF4A4A); /* 标准的语法 */
+
+    -webkit-box-shadow: inset 3px 12px 10px #E42B34, 0px 3px 3px rgba(56, 52, 55, 0.34);
+    -moz-box-shadow: inset 3px 12px 10px #E42B34, 0px 3px 3px rgba(56, 52, 55, 0.34);
+    -o-box-shadow: inset 3px 12px 10px #E42B34, 0px 3px 3px rgba(56, 52, 55, 0.34);
+    box-shadow: inset 3px 12px 10px #E42B34, 0px 3px 3px rgba(56, 52, 55, 0.34);
+
+    color: #fff;
+}
+.sidebar-item li {
+    line-height: 30px;
+    margin-top: 10px;
+
+    cursor: pointer;
+}
+.sidebar-item li.active {
+    background-color: rgba(230, 64, 66, 0.73);
+}
+.sidebar-item li::after {
+    content: "";
+    display: block;
+    width: 90%;
+    height: 1px;
+    margin: 0 auto;
+    background-color: #ddd;
+}
+
+/* 右边内容 */
+.section {
+    margin-left: 245px;
+}
+.section .hd {
+    margin-top: -47px;
+    border-bottom: 1px solid #F70707;
+
+    letter-spacing: .05cm;
+}
+.section .hd div {
+    display: inline-block;
+}
+.section .titleAndPosition-wrap {
+    width: 100%;
+
+    margin-left: 35px;
+}
+.section .postion {
+    margin-right: 30px;
+    float: right;
+}

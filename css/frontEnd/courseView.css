@@ -1,22 +1,5 @@
 /* 公共样式 */  
-body {
-    font: 14px/1.5 "PingFang SC", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
-}
-a, a:hover, a:focus {
-    color: inherit;
-    outline: none;
-    text-decoration: none;
-    cursor: pointer;
-}
-ul {
-    padding: 0;
-}
-li {
-    list-style: none;
-}
-.nav > li > a:hover, .nav > li > a:focus {
-	background-color: inherit;
-}
+
 
 /* 头部 */
 .header-wrap {
