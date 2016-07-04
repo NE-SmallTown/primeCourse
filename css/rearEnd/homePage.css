@@ -1,0 +1,89 @@
+/* 公共样式 */
+body {
+    min-width: 1200px;
+    font: 14px "PingFang SC", Helvetica, "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+}
+.main {
+    min-height: 500px;
+}
+a, a:hover, a:focus {
+    color: inherit;
+    outline: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+ul {
+    padding: 0;
+}
+li {
+    list-style: none;
+}
+
+/* 头部 */
+.header {
+    color: #fff;
+
+    background-color: rgba(9, 86, 230, 0.58);
+}
+.header .title {
+    float: left;
+}
+.header .title .content {
+    position: relative;
+    display: inline-block;
+
+    top: -6px;
+
+    font-size: 20px;
+    letter-spacing: .05cm;
+}
+.header .logout {
+    float: right;
+    display: inline-block;
+
+    margin-top: -5px;
+
+    letter-spacing: 0.1cm;
+    cursor: pointer;
+}
+.header .logout:hover .content {
+    font-size: 16px;
+}
+.logout .content {
+    position: relative;
+    display: inline-block;
+
+    top: -2px;
+
+    letter-spacing: .05cm;
+}
+/* 侧边栏 */
+.sidebar {
+    float: left;
+    width: 215px;
+    min-height: 100vh;
+
+    color: #fff;
+    background-color: rgba(6, 8, 9, 0.9);
+}
+.sidebar .userinfo {
+    margin-top: 50px;
+
+    text-align: center;
+}
+.userinfo .nickname {
+    margin-top: 10px;
+
+    font-family: serif;
+    font-size: 18px;
+}
+.userinfo .rolename {
+    margin-top: 3px;
+    color: #436DAD;
+}
+.sidebar .avatar {
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+}

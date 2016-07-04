@@ -12,6 +12,7 @@
 
     // 通用变量，便于管理
     var URL_LIST = {
+            BASE: 'http://localhost:7792/ProjectDesign/',
             fileResourceList_url: 'api/course/fileResource',
             videoResourceList_url: 'api/course/videoResource'
         },
@@ -44,7 +45,7 @@
                                     '</div>' +
                                 '</div>' +
                             '</a>' +
-                        '</div>'
+                        '</div>';
             }
         },
         pagerObj, // 分页栏对象
@@ -66,7 +67,7 @@
         }()),
         createFileResourceList = function ($ele, shouldCreatePager) { // 向指定元素中创建教学课件列表
             $.ajax({
-                    url: URL_LIST.fileResourceList_url,
+                    url: URL_LIST.BASE + URL_LIST.fileResourceList_url,
                     data: {
                         id: sessionStorage.currentCourseId,
                         page: 1
@@ -126,7 +127,7 @@
         },
         createVideoResourceList = function ($ele, shouldCreatePager) { // 向指定元素中创建教学视频列表
             $.ajax({
-                    url: URL_LIST.videoResourceList_url,
+                    url: URL_LIST.BASE + URL_LIST.videoResourceList_url,
                     data: {
                         id: sessionStorage.currentCourseId,
                         page: 1

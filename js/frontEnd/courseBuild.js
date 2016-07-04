@@ -12,6 +12,7 @@
 
     // 通用变量，便于管理
     var URL_LIST = {
+            BASE: 'http://localhost:7792/ProjectDesign/',
             articleList_url: 'api/course/article'
         },
         ENUMS = { // 所有的枚举值(如果二级导航是动态添加的话会用到,赋给data-link)
@@ -35,7 +36,7 @@
         }()),
         createArticleList = function ($ele, shouldCreatePager) { // 向指定元素中创建文章列表
             $.ajax({
-                url: URL_LIST.articleList_url,
+                url: URL_LIST.BASE + URL_LIST.articleList_url,
                 data: {
                     id: sessionStorage.currentCourseId,
                     page: 1

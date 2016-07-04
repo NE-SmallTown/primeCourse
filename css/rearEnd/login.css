@@ -1,0 +1,50 @@
+body {
+    background-image: url("../../images/rearEnd/loginBk.jpg");
+    background-size: cover;
+}
+
+.main {
+    min-height: 500px;
+}
+.main .box {
+    position: absolute;
+
+    width: 500px;
+    height: 300px;
+
+    top: 40%;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: -150px;
+
+    text-align: center;
+    color: #fff;
+    background-color: #58C2BE;
+}
+.box .title {
+    margin-top: 5px;
+
+    font-size: 20px;
+}
+.box .form-horizontal {
+    margin-top: 50px;
+}
+.box .form-group {
+    margin: 0;
+}
+.box .form-control {
+    margin-bottom: 30px;
+}
+.box .formTips {
+    height: 34px;
+    line-height: 34px;
+    font-size: 16px;
+    color: #F0463B;
+}
+.box .submit {
+    width: 50%;
+
+    margin: 0 auto;
+
+    background-color: rgba(59, 126, 230, 0.73);
+}

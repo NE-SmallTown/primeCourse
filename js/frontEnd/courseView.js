@@ -17,6 +17,7 @@
 
 	// 通用变量，便于管理
 	var URL_LIST = {
+			BASE: 'http://localhost:7792/ProjectDesign/',
 			courseDetail_url: null// 获取课程详细信息的url
 		},
 		createHead = (function() { // 创建界面顶部内容
@@ -51,7 +52,7 @@
     // 请求课程详细信息
     (function() {
     	$.ajax({
-    		url: URL_LIST.courseDetail_url,
+    		url: URL_LIST.BASE + URL_LIST.courseDetail_url,
     		data: {
     			id: sessionStorage.currentCourseId
     		},

@@ -12,6 +12,7 @@
 
     // 通用变量，便于管理
     var URL_LIST = {
+            BASE: 'http://localhost:7792/ProjectDesign/',
             courseIntro_url: 'api/course/field'
         },
         ENUMS = { // 所有的枚举值(如果二级导航是动态添加的话会用到,赋给data-link)
@@ -41,7 +42,7 @@
         }()),
         createContent = function (filed) { // 创建右边的内容部分
             $.ajax({
-                url: URL_LIST.courseIntro_url,
+                url: URL_LIST.BASE + URL_LIST.courseIntro_url,
                 data: {
                     id: sessionStorage.currentCourseId,
                     field: filed

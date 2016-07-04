@@ -10,6 +10,7 @@
 
     // 通用变量，便于管理
     var URL_LIST = { // 本页面需要用到的url
+            BASE: 'http://localhost:7792/ProjectDesign/',
         	classification_url: '', // 请求分类的url
         	courseList_url: '', // 请求课程列表的url
             courseItem_url: 'courseView.html' // 请求具体某门课程的url
@@ -105,7 +106,7 @@
         pagerObj, // 分页栏对象
         ajaxCourseList = function (shouldCreatePager) { // 请求课程数据,构建课程列表
             return $.ajax({
-                        url: URL_LIST.courseList_url,
+                        url: URL_LIST.BASE + URL_LIST.courseList_url,
                         data: {
                             "optionId": current_ops.pid, // 学院
                             "genresId": current_ops.id, // 类别
@@ -169,7 +170,7 @@
     // 构建一级分类 (即学院)
     (function() {
         $.ajax({
-        	url: URL_LIST.classification_url
+        	url: URL_LIST.BASE + URL_LIST.classification_url
         })
         .done(function(clf_data) {
         	console.log("get classification success");            
