@@ -16,3 +16,37 @@
     color: #fff;
     font-size: 23px;
 }
+
+/* 侧边栏 */
+.icon-contentManage::before {
+    content: "\e60c";
+    font-size: 20px;
+}
+.icon-courseManage::before {
+    content: "\e60a";
+}
+.icon-articleManage::before {
+    content: "\e606";
+}
+.icon-articleReview::before {
+    content: "\e607";
+}
+.icon-systemSetting::before {
+    content: "\e60d";
+    font-size: 20px;
+}
+.icon-authorityManage::before {
+    content: "\e605";
+}
+.icon-moduleManage::before {
+    content: "\e60e";
+}
+.icon-userManage::before {
+    content: "\e60b";
+}
+.icon-roleManage::before {
+    content: "\e604";
+}
+.icon-roleAssign::before {
+    content: "\e608";
+}

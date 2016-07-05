@@ -1,0 +1,121 @@
+/* 头部 */
+.header {
+    color: #fff;
+
+    background-color: rgba(9, 86, 230, 0.58);
+}
+.header .title {
+    float: left;
+}
+.header .title .content {
+    position: relative;
+    display: inline-block;
+
+    top: -6px;
+
+    font-size: 20px;
+    letter-spacing: .05cm;
+}
+.header .logout {
+    float: right;
+    display: inline-block;
+
+    margin-top: -5px;
+
+    letter-spacing: 0.1cm;
+    cursor: pointer;
+}
+.header .logout:hover .content {
+    font-size: 16px;
+}
+.logout .content {
+    position: relative;
+    display: inline-block;
+
+    top: -2px;
+
+    letter-spacing: .05cm;
+}
+/* 侧边栏 */
+.sidebar {
+    float: left;
+    width: 215px;
+    min-height: 100vh;
+
+    color: #fff;
+    background-color: rgba(6, 8, 9, 0.9);
+}
+.sidebar .userinfo {
+    margin-top: 50px;
+
+    text-align: center;
+}
+.userinfo .nickname {
+    margin-top: 10px;
+
+    font-family: serif;
+    font-size: 18px;
+}
+.userinfo .rolename {
+    margin-top: 3px;
+    color: #436DAD;
+}
+.sidebar .avatar {
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+}
+/* 侧边栏 */
+.sidebar .sidebar-list {
+    margin-top: 10px;
+
+    font-size: 14px;
+    font-family: "serif";
+    text-align: center;
+}
+.sidebar-list li:hover {
+    cursor: pointer;
+}
+.sidebar-list > ul > li > .title {
+    font-size: 20px;
+}
+.sidebar-list > ul > li > ul > li:hover {
+    background-color: #2e6da4;
+}
+.sidebar-list .icon {
+    color: #fff;
+}
+.sidebar-list .triangleRight {
+    content: "";
+    float: right;
+    position: relative;
+    width: 0px;
+    height: 0px;
+    top: 18px;
+    right: 17px;
+    border-top: 5px solid rgba(0, 0, 0, 0);
+    border-bottom: 5px solid rgba(212, 18, 18, 0);
+    border-left: 10px solid #3562B3;
+    font-size: 0px;
+
+    transition: transform 0.3s;
+    -moz-transition: transform 0.3s; /* Firefox 4 */
+    -webkit-transition: transform 0.3s; /* Safari 和 Chrome */
+    -o-transition: transform 0.3s; /* Opera */
+}
+.sidebar-list .triangleRightToDown {
+    transform:rotate(90deg);
+}
+.sidebar-list .active {
+    background-color: rgba(72, 172, 215, 0.9);
+}
+.sidebar-list > ul ul {
+    display: none;
+}
+.sidebar-list .show {
+    display: block;
+}
+.section {
+    margin-left: 215px;
+}

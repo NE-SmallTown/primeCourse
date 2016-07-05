@@ -18,7 +18,7 @@
             url: URL_LIST.BASE + URL_LIST.login_url,
             type: 'post',
             dataType: 'json',
-            timeout: 5000,
+            
             data: {
                 username: name,
                 password: pwd
@@ -34,6 +34,10 @@
             // 根据状态不同确认要显示的信息
             switch (~~state) {
                 case 0: // 成功
+                    sessionStorage.userinfo_id = data.user.id;
+                    sessionStorage.userinfo_username = data.user.username;
+                    sessionStorage.userinfo_nickname = data.user.nickname;
+                    sessionStorage.avatarUrl = data.user.avatarUrl;
                     window.location.href = "../../admin/homePage.html";
                     return;
                 case 1: // 用户不存在
