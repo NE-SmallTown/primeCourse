@@ -2,6 +2,7 @@
     // 通用变量，便于管理
     var URL_LIST = {
             BASE: 'http://localhost:7792/',
+            IMGBASE: 'http://localhost:7792',
             mudule_list_url: 'api/user/modulelist' // 用户可以访问的模块列表
         },
         SIDEBARLIST_ICONS = { // 侧边栏每个列表对应的图标url，因为开始设计数据库时候没设计这个，只有这么补救了。。
@@ -19,6 +20,15 @@
             '角色分配'     : 'icon-roleAssign',
             '网站内容管理'  : 'icon-courseManage'
         },
+        moduleUrlMap = { // 模块id到模块url的映射
+
+        },
+        createNavAndSidebar = (function () { // 加载顶部和侧边栏
+            $('.content').load('NavAndSidebar.html', function () { // 加载完成后创建用户信息和侧边栏列表
+                createUserinfo();
+                createSidebarList();
+            });
+        }()),
         bindSidebarListLv1Clcik = (function () { // 绑定侧边栏一级菜单点击事件
             $('body').on('click', '.sidebar-list > ul > li', function(event) {
                 event.stopPropagation();
@@ -36,7 +46,14 @@
             $('body').on('click', '.sidebar-list li[data-moduleId]', function(event) {
                 event.stopPropagation();
 
-                var $self = $(this);
+                // 存储模块id
+                sessionStorage.currentModuleId = $(this).attr('data-moduleId');
+                // 取消之前的高亮，并给当前模块高亮
+                $('.sidebar-list li.active').removeClass('active');
+                $(this).addClass('active');
+
+                // 最后跳转到对应模块
+                location.href = moduleUrlMap[$(this).attr('data-moduleId')];
             });
         }()),
         bindLogoutClick = (function () { // 给登出按钮绑定事件
@@ -44,18 +61,18 @@
                 location.replace('login.html');
             });
         }()),
-        createUserinfo = (function () { // 创建用户信息
-            $('.avatar-wrap img').attr('src', sessionStorage.avatarUrl);
-            $('.nickname').text(sessionStorage.userinfo_username);
+        createUserinfo = function () { // 创建用户信息
+            $('.avatar-wrap img').attr('src', URL_LIST.IMGBASE + sessionStorage.avatarUrl);
+            $('.nickname').text(sessionStorage.userinfo_nickname);
             /*$('.rolename').text(sessionStorage.userinfo_rolename);*/
-        }()),
-        createSidebarList = (function () { // 创建侧边栏列表
+        },
+        createSidebarList = function () { // 创建侧边栏列表
             $.ajax({
                 url: URL_LIST.BASE + URL_LIST.mudule_list_url,
                 type: 'get',
                 dataType: 'json',
                 data: {
-                    id: sessionStorage.userinfo.id
+                    id: sessionStorage.userinfo_id
                 }
             })
             .done(function(data) {
@@ -82,13 +99,13 @@
                     list_lv2 = list_lv1.list;
                     list_lv2_len = list_lv2.length;
                     for(j = 0; j < list_lv2_len; j++) {
-                        $ul_lv2 = $('<ul></ul>');
+                        moduleUrlMap[list_lv2[j].id] = list_lv2[j].url;
 
+                        $ul_lv2 = $('<ul></ul>');
                         li_lv2 = '<li data-moduleId="' +  list_lv2[j].id + '">' +
                                     '<i class="icon iconfont ' + SIDEBARLIST_ICONS[list_lv2[j].name] + '"></i>' +
                                     '<span class="title">' + list_lv2[j].name + '</span>' +
                                  '</li>';
-
                         $ul_lv2.append(li_lv2);
                     }
                     $(li_lv1).append($ul_lv2);
@@ -100,5 +117,5 @@
             .fail(function() {
                 console.log("error");
             });            
-        }());
+        };
 })(jQuery, window);

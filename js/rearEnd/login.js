@@ -28,17 +28,17 @@
             console.log("login success");
 
             var state = data.state,
-                acMsg,
-                pwMsg;
+                acMsg = '',
+                pwMsg = '';
 
             // 根据状态不同确认要显示的信息
             switch (~~state) {
                 case 0: // 成功
-                    sessionStorage.userinfo_id = data.user.id;
-                    sessionStorage.userinfo_username = data.user.username;
-                    sessionStorage.userinfo_nickname = data.user.nickname;
-                    sessionStorage.avatarUrl = data.user.avatarUrl;
-                    window.location.href = "../../admin/homePage.html";
+                    sessionStorage.userinfo_id = data.id;
+                    sessionStorage.userinfo_username = data.username;
+                    sessionStorage.userinfo_nickname = data.nickname;
+                    sessionStorage.avatarUrl = data.avatarUrl;
+                    window.location.href = "homePage.html";
                     return;
                 case 1: // 用户不存在
                     acMsg = "用户不存在";
@@ -52,14 +52,18 @@
             }
 
             //如果有错误信息，则显示出来
-            if($('#acTips').size() == 0)
-                $('#login_name').parent().after($('<div id=\'acTips\' class=\'formTips col-xs-12 col-sm-12 col-md-3 col-lg-3\'>' + acMsg + '</div>'));
-            else
+            if($('#acTips').size() == 0) {
+                $('[name="username"]').parent().removeClass('col-md-9').addClass('col-md-8');
+                $('[name="username"]').parent().after($('<div id="acTips" class="formTips">' + acMsg + '</div>'));
+            } else {
                 $('#acTips').html(acMsg);
-            if($('#pwdTips').size() == 0)
-                $('#pwd').parent().after($('<div id=\'pwdTips\' class=\'formTips col-xs-12 col-sm-12 col-md-3 col-lg-3\'>' + pwMsg + '</div>'));
-            else
+            }
+            if($('#pwdTips').size() == 0) {
+                $('[name="password"]').parent().removeClass('col-md-9').addClass('col-md-8');
+                $('[name="password"]').parent().after($('<div id="pwdTips" class="formTips">' + pwMsg + '</div>'));
+            } else {
                 $('#pwdTips').html(pwMsg);
+            }
         })
         .fail(function(jqXHR, textStatus, errorMsg){
             console.log('status: ' + textStatus + ' msg: ' + errorMsg);

@@ -4,8 +4,12 @@ body {
     color: #14191e;
 }
 a, a:hover, a:focus {
+    cursor: pointer;
     outline: none;
     text-decoration: none;
+}
+ul {
+    padding: 0;
 }
 
 .main {

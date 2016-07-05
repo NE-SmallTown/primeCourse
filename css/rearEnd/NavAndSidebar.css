@@ -113,6 +113,9 @@
 .sidebar-list > ul ul {
     display: none;
 }
+.sidebar-list .active {
+    background-color: #2e6da4;
+}
 .sidebar-list .show {
     display: block;
 }

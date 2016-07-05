@@ -36,10 +36,9 @@ body {
     margin-bottom: 30px;
 }
 .box .formTips {
-    height: 34px;
     line-height: 34px;
     font-size: 16px;
-    color: #F0463B;
+    color: #fff;
 }
 .box .submit {
     width: 50%;
