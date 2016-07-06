@@ -11,6 +11,7 @@
     // 通用变量，便于管理
     var URL_LIST = { // 本页面需要用到的url
             BASE: 'http://localhost:7792/',
+            IMGBASE: 'http://localhost:7792',
         	classification_url: 'api/courseoption/treeview', // 请求分类的url
         	courseList_url: 'api/course/slist', // 请求课程列表的url
             courseItem_url: 'courseView.html' // 请求具体某门课程的url
@@ -30,7 +31,7 @@
                 return  '<div class="course-item col-md-3" data-courseId="' + data.id + '">' +
                             '<a target="_blank" href="' + URL_LIST.courseItem_url + '">' +
                                 '<div class="course-item-img-warp">' +
-                                    '<img src="' + data.imgUrl + '" class="img-responsive">' +
+                                    '<img src="' + URL_LIST.IMGBASE + data.imgUrl + '" class="img-responsive">' +
                                 '</div>' +
                                 '<div class="course-item-caption">' +
                                     '<div class="line">' +
@@ -40,18 +41,18 @@
                                         '<span class="course-teacher">开课教师: ' + data.teacher + '</span>' +
                                     '</div>' +
                                     '<div class="line clearfix">' +
-                                        '<span class="course-date">开课时间: ' + data.date + '</span>' +
-                                        '<span class="course-visits">' + data.visits + '356人访问</span>' +
+                                        '<span class="course-date">开课时间: ' + data.date.substr(0, data.date.indexOf('T')) + '</span>' +
+                                        '<span class="course-visits">' + data.visits + '人访问</span>' +
                                     '</div>' +
                                 '</div>' +
                             '</a>' +
                         '</div>'
             },
-            _bindCouseItemClick: function() { // 给每门课程绑定点击事件,存储课程id,跳转后使用
+            _bindCouseItemClick: (function() { // 给每门课程绑定点击事件,存储课程id,跳转后使用
                 $('body').on('click', '.course-item > a', function(event) {
-                    sessionStorage.currentCourseId = $(this).attr('data-courseId');                 
+                    sessionStorage.currentCourseId = $(this).parent().attr('data-courseId');
                 });
-            }()
+            }())
         },
         classification_ops = { // 分类相关的配置
             ACD_ALL_ID: 0, // 学院这一级分类中"全部"这个选项的ID,这个值与后台协商好
@@ -99,7 +100,7 @@
                             "genresId": current_ops.id, // 类别
                             "perPage": courseList_ops.PERPAGE_COURSENUM, // 一页的课程数
                             "orderBy": current_ops.orderBy, // 排序方式
-                            "page": pagerObj ? pagerObj.curPage : 1  // 请求的是第几页
+                            "page": shouldCreatePager ? 1 : pagerObj ? pagerObj.curPage : 1  // 请求的是第几页
                         }
                     })
                     .then(function(courseListData) {
@@ -108,7 +109,7 @@
                         // 显示数据
                         var $course_list = $('.course-list').empty(),
                             cp = courseList_ops,
-                            course_list_row_len = Math.floor($course_list.length / cp.PERROW_SHOWEDNUM), // 列表的行数
+                            course_list_row_len = Math.ceil(courseListData.list.length / cp.PERROW_SHOWEDNUM), // 列表的行数
                             $course_list_row, // 每一行的元素
                             $course_list_item, // 每一个元素
                             i, j, k; // 循环变量
@@ -119,7 +120,7 @@
                             $course_list_row = $(cp.createRowContainer());
 
                             // 创建列
-                            for(j = 0; j < cp.PERROW_SHOWEDNUM; j++, k++) {
+                            for(j = 0; courseListData.list[k] && j < cp.PERROW_SHOWEDNUM; j++, k++) {
                                 $course_list_item = $(cp.createItem({
                                     id: courseListData.list[k].id,
                                     imgUrl: courseListData.list[k].imageUrl,
@@ -128,10 +129,11 @@
                                     date: courseListData.list[k].openDate,
                                     visits: courseListData.list[k].view
                                 }));
+
+                                $course_list_row.append($course_list_item); // 将列插入行中
                             }
 
-                            $course_list_row.append($course_list_item); // 插入行中                
-                            $course_list.append($course_list_row); // 插入列表面板中
+                            $course_list.append($course_list_row); // 将行插入列表面板中
                         }
 
                         // 判断是否需要创建分页栏
@@ -149,7 +151,7 @@
                         if($('.pageNumInfo').length > 0) {
                             $('.pageNumInfo').text('共有' + courseListData.count + '条记录');
                         } else {
-                            $('.pager-warp').append('<div class="pageNumInfo">共有' + courseListData.count + '条记录</div>');
+                            $('.pager-warp .pagination').after('<div class="pageNumInfo">共有' + courseListData.count + '条记录</div>');
                         }                      
                     });
         };
@@ -171,7 +173,7 @@
                 appendHtml = '',
                 i;
 
-            appendHtml += clf_ops.createItem(TOP_P_ID, clf_ops.TYPE_ALL_ID, '全部'); // 首先添加"全部"选项
+            appendHtml += clf_ops.createItem(TOP_P_ID, clf_ops.ACD_ALL_ID, '全部'); // 首先添加"全部"选项
             for(i = 0; i < clf_data.length; i++) {
                 appendHtml += clf_ops.createItem(TOP_P_ID, clf_data[i].id, clf_data[i].name);
             }
@@ -190,8 +192,8 @@
                 $createdUl = $nav_type.children('ul[data-pid=' + id + ']');
 
             // 取消之前的高亮
-            $('.content-item.on').removeClass('on');
-            $self.parent().addClass('on');
+            $(this).removeClass('on').siblings().removeClass('on');
+            $(this).addClass('on');
 
             // 先隐藏之前的类别面板
             $nav_type.children('ul').css('display', 'none');
@@ -208,7 +210,7 @@
                 appendHtml = '',
                 i;
             // 依次创建类别
-            appendHtml += clf_ops.createItem(clf_ops.TOP_P_ID, clf_ops.ACD_ALL_ID, '全部'); // 首先添加"全部"选项
+            appendHtml += clf_ops.createItem($('#course-nav-acd li.on').children().attr('data-id'), clf_ops.TYPE_ALL_ID, '全部'); // 首先添加"全部"选项
             for(i = 0; i < subClf.length; i++) {
                 appendHtml += clf_ops.createItem(id, subClf[i].id, subClf[i].name);
             }
@@ -232,10 +234,8 @@
             current_ops.id = id, // 更新当前分类的id
             
             // 首先移除之前的高亮,然后将对应的学院和点击的类别高亮显示
-            $('#course-nav-acd').find('li a[data-id=' + old_pid + ']').removeClass('on');
-            $('#course-nav-type').find('li a[data-id=' + old_id + ']').removeClass('on');
-            $('#course-nav-acd').find('li a[data-id=' + pid + ']').addClass('on');
-            $self.parent().addClass('on');
+            $(this).removeClass('on').siblings().removeClass('on');
+            $(this).addClass('on');
 
             // 发起请求,构建课程列表
             ajaxCourseList(true);
@@ -254,10 +254,10 @@
             $self.addClass('active');
 
             // 更新当前选择的排序标准
-            if($self.attr('data-date') == 'date') {
-                current_ops.orderBy = courseList_ops.ORDER_BY.BY_HOT;
-            } else if ($self.attr('data-date') == 'hot') {
+            if($self.attr('data-orderName') == 'date') {
                 current_ops.orderBy = courseList_ops.ORDER_BY.BY_DATE;
+            } else if ($self.attr('data-orderName') == 'hot') {
+                current_ops.orderBy = courseList_ops.ORDER_BY.BY_HOT;
             }
 
             // 请求课程列表

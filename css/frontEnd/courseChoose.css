@@ -88,6 +88,12 @@ ul {
     margin: 0 20px;
     line-height: 40px;
 }
+.toolbar-left a.active {
+    border: 1px solid #6595EF;
+
+    background-color: #6595EF;
+}
+
 /* 课程列表 */
 .course-list {
     min-height: 600px;
@@ -131,5 +137,14 @@ ul {
 }
 .course-item-caption .course-visits {
     float: right;
+}
+
+.pageNumInfo {
+    float: right;
+
+    margin-right: 21px;
+    margin-top: 28px;
+
+    letter-spacing: .5cm;
 }
 

@@ -12,7 +12,7 @@
 
     // 通用变量，便于管理
     var URL_LIST = {
-            BASE: 'http://localhost:7792/ProjectDesign/',
+            BASE: 'http://localhost:7792/',
             fileResourceList_url: 'api/course/fileResource',
             videoResourceList_url: 'api/course/videoResource'
         },
@@ -50,7 +50,9 @@
         },
         pagerObj, // 分页栏对象
         createHead = (function() { // 创建界面顶部内容
-            $('.header').load('courseView-nav.html');
+            $('.header').load('courseView-nav.html', function () {
+                $('nav .title').text(sessionStorage.courseName);
+            });
         }()),
         createContent = function (type) { // 创建右边的内容部分
             switch (~~type) {

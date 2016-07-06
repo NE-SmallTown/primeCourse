@@ -12,7 +12,7 @@
 
     // 通用变量，便于管理
     var URL_LIST = {
-            BASE: 'http://localhost:7792/ProjectDesign/',
+            BASE: 'http://localhost:7792/',
             articleList_url: 'api/course/article'
         },
         ENUMS = { // 所有的枚举值(如果二级导航是动态添加的话会用到,赋给data-link)
@@ -22,7 +22,9 @@
             }
         },
         createHead = (function() { // 创建界面顶部内容
-            $('.header').load('courseView-nav.html');
+            $('.header').load('courseView-nav.html', function () {
+                $('nav .title').text(sessionStorage.courseName);
+            });
         }()),
         createContent = function (type) { // 创建右边的内容部分
             switch (~~type) {
@@ -43,23 +45,24 @@
                 },
             })
             .done(function(data) {
-                var cs_list = data.list,
-                    $cs_list_ul = $('<ul class="clearfix"></ul>'),
-                    cs_list_li,
+                var ar_list = data.list,
+                    ar_list_len = ar_list.length,
+                    $ar_list_ul = $('<ul class="clearfix"></ul>'),
+                    ar_list_li,
                     i;
 
-                for(i = 0; i < cs_list.length; i++) {
-                    cs_list_li = '<li>' +
-                                     '<a>' + data.list[i].articleName + '</a>' +
-                                     '<span class="date">' + data.list[i].writeDate + '</span>' +
+                for(i = 0; i < ar_list_len; i++) {
+                    ar_list_li = '<li>' +
+                                     '<a>' + ar_list[i].title + '</a>' +
+                                     '<span class="date">' + ar_list[i].editAt.substr(0, ar_list[i].editAt.indexOf('T')) + '</span>' +
                                  '</li>';
 
-                    $cs_list_ul.append(cs_list_li);
+                    $ar_list_ul.append(ar_list_li);
                 }
-                $ele.empty().append(cs_list_ul);
+                $ele.empty().append($ar_list_ul);
 
                 if(shouldCreatePager) {
-                    pagerObj = $('.pager-warp').empty().createPager({
+                    pagerObj = $('.pager-wrap').empty().createPager({
                         ajaxOps: {
                             ajaxFunc: createArticleList,
                             ajaxFuncArgs: false
@@ -79,7 +82,7 @@
 
     // 绑定各个分类的点击事件
     (function () {
-        $('body').on('click', '[data-link]', function () { // 课程简介
+        $('body').on('click', '[data-link]', function () {
             // 如果点击的是当前导航，则不做出相应
             if($(this).hasClass('active')) {
                 return false;

@@ -12,7 +12,7 @@
 
     // 通用变量，便于管理
     var URL_LIST = {
-            BASE: 'http://localhost:7792/ProjectDesign/',
+            BASE: 'http://localhost:7792/',
             courseIntro_url: 'api/course/field'
         },
         ENUMS = { // 所有的枚举值(如果二级导航是动态添加的话会用到,赋给data-link)
@@ -38,7 +38,9 @@
             }
         },
         createHead = (function() { // 创建界面顶部内容
-            $('.header').load('courseView-nav.html');
+            $('.header').load('courseView-nav.html', function () {
+                $('nav .title').text(sessionStorage.courseName);
+            });
         }()),
         createContent = function (filed) { // 创建右边的内容部分
             $.ajax({

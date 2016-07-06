@@ -1,10 +1,17 @@
-.courseSituation .cs-list-wrap {
+.articleList {
     letter-spacing: .05cm;
 }
-.courseSituation .cs-list-wrap li {
-    line-height: 30px;
+.articleList li {
+    line-height: 25px;
 }
-.courseSituation .date {
+.articleList li:first-child {
+    margin-top: 7px;
+}
+.articleList li:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+.articleList .date {
     float: right;
 
     letter-spacing: .05cm;

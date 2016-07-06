@@ -115,13 +115,13 @@
 .courseSituation {
     text-align: center;
 }
-.courseSituation .cs-list-wrap {
+.courseSituation .ar-list-wrap {
     letter-spacing: .05cm;
 }
-.courseSituation .cs-list-wrap li {
+.courseSituation .ar-list-wrap li {
     line-height: 30px;
 }
-.courseSituation .cs-list-wrap li::before{
+.courseSituation .ar-list-wrap li::before{
     display: inline-block;
     content: "";
     width: 5px;

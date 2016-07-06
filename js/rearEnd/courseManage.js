@@ -24,7 +24,10 @@
         },
         createQueryItem = function (queryName, queryNameStr) { // 创建一个查询条件
             var item_html = '<div class="form-group">' +
-                                '<input type="text" class="form-control" name="' + queryName + '" placeholder="' + queryNameStr + '">' +
+                                '<label class="control-label col-md-1">' + queryNameStr + ':</label>' +
+                                '<div class="com-md-2">' +
+                                    '<input type="text" class="form-control" name="' + queryName + '" placeholder="' + queryNameStr + '">' +
+                                '</div>'
                             '</div>';
         },
         createQuery = function ($query_wrap) { // 创建查询条件面板

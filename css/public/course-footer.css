@@ -1,5 +1,7 @@
 /* 底部 */
 .footer {
+    margin-top: 60px;
+
     font-family: "serif";
     text-align: center;
 }

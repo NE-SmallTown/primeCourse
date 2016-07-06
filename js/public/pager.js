@@ -3,14 +3,19 @@
 
     // 创建分页栏
     $.fn.createPager = function (pagerOps) {
+        var $wrap = this
+            self;
+
         // 构造函数
         function NE_Pager() {
+            self = this;
+
             this._init();
         }
 
         // 添加相关字段
         NE_Pager.prototype.ajaxOps = {  // 点击页码时ajax的配置参数
-            ajaxFunc: null, // 用户自定义的点击页码时的ajax函数
+            ajaxFunc: null, // 用户自定义的点击页码时的ajax函数s
             ajaxFuncArgs: null // ajax函数的参数
         };
         NE_Pager.prototype.curPage = 1; // 设置当前页
@@ -26,7 +31,7 @@
                 throw new Error('args must be object!');
             }
             // pagerOps中的参数是否在NE_Pager .prototype都有对应的属性
-            if(!checkObjParamsConsistent(pagerOps, NE_Pager.prototype)) {
+            if(!checkObjParamsConsistent(NE_Pager.prototype, pagerOps)) {
                 throw new Error('arguments error, Please consult the api!');
             }
 
@@ -34,9 +39,7 @@
             function checkObjParamsConsistent(obj1, obj2) {
                 var i;
                 for(i in obj2) {
-                    if(!obj1[i]) {
-                        return false;
-                    } else if(typeof obj1[i] !== typeof obj2[i]) {
+                    if(!(i in obj1)) {
                         return false;
                     } else if($.isPlainObject(obj2[i])) {
                         checkObjParamsConsistent(obj1[i], obj2[i]);
@@ -56,7 +59,17 @@
 
             // 以下为构造分页栏部分
             var pages = this.pages,
-                curPage = this.curPage;                          
+                curPage = this.curPage,
+                showedPagesButtonNum = this.showedPagesButtonNum,
+                curPage_posIndex = 5, // 当前页总是位于第5个位置(页数超过showedPagesButtonNum的情况下)
+                curPageShowedPages = (function() { // 获取当前页应该显示多少个页码
+                    if(pages < showedPagesButtonNum) {
+                        return pages;
+                    } else {
+                        var res = showedPagesButtonNum - (curPage + curPage_posIndex - pages);
+                        return res > showedPagesButtonNum ? showedPagesButtonNum : res;
+                    }
+                }());
             var ne_pager = $('<div class="ne-pager clearfix"></div>'),
                 pagination = $('<ul class="pagination"></ul>'),
                 pagination_liTag, // pagination下的li标签(只包含页码，不包含上一页这些  )
@@ -78,7 +91,7 @@
             }
             pagination.append(firstPageTag);
             pagination.append(prevPageTag);
-            for(i = 0; i < showedPagesButtonNum; i++) {
+            for(i = 0; i < curPageShowedPages; i++) {
                 pagination_liTag = $('<li><a data-value="' + (i + 1) + '">' + (i + 1) + '</a></li>');
                 pagination.append(pagination_liTag);
 
@@ -90,24 +103,23 @@
             pagination.append(lastPageTag);
 
             ne_pager.append(pagination);
-            this.append(ne_pager);
+            $wrap.append(ne_pager);
+            self.updatePager();
         }
 
         // 绑定分页栏点击事件
-        NE_Pager.prototype._bindPagerEvent = function() {
-            var self = this;
-
+        NE_Pager.prototype._bindPagerEvent = (function() {
             $('body')
             .off('click', '.ne-pager .pagination > li > a[data-value]')
             .on('click', '.ne-pager .pagination > li > a[data-value]', function(event) {
                 var toPage = Number($(this).attr('data-value'));
-                if(toPage == self.curPage || toPage < 1 || toPage > pages) { // 如果请求的就是当前页或者超出范围，则不做出响应
+                if(toPage == self.curPage || toPage < 1 || toPage > self.pages) { // 如果请求的就是当前页或者超出范围，则不做出响应
                     return ;
                 }
 
-                self.showedPagesButtonNum = self.showedPagesButtonNum > pages ? pages : self.showedPagesButtonNum; // 更新分页栏展示的页码个数
+                self.showedPagesButtonNum = self.showedPagesButtonNum > self.pages ? self.pages : self.showedPagesButtonNum; // 更新分页栏展示的页码个数
                 self.oldPage = self.curPage; // 更新oldPage
-                self.curPage = tableSetting.curPage; // 更新curPage
+                self.curPage = toPage; // 更新curPage
 
                 // 请求数据
                 // 如果用户有定义ajax函数,则调用
@@ -120,14 +132,15 @@
             });
 
             return true; // 事件绑定完毕
-        }
+        }());
 
         // 更新分页栏 (点击页码后触发 )
         NE_Pager.prototype.updatePager = function() {
-            var pager_ul_li = neTable_warp.find('.ne-pager ul li'),
+            var pager_ul_li = $wrap.find('.ne-pager ul li'),
                 oldPage = this.oldPage,
                 showedPagesButtonNum = this.showedPagesButtonNum,
                 curPage = this.curPage,
+                pages = self.pages,
                 firstATag = pager_ul_li.find('a.first'),
                 prevATag = pager_ul_li.find('a.prev'),
                 nextATag = pager_ul_li.find('a.next'),
@@ -221,7 +234,7 @@
             }).addClass('curPage');
 
             // 为了美观，调整分页栏到左边的间距  (因为页码有多有少 )
-            var pager_ul = neTable_warp.find('.ne-pager ul');
+            var pager_ul = $wrap.find('.ne-pager ul');
             switch(pager_ul.children().length - 4) {
                 case 10:
                     pager_ul.css('margin-left', '20%');
@@ -246,7 +259,7 @@
                     pager_ul.css('margin-left', '26%');
                     break;
                 case 2:
-                    pager_ul.css('margin-left', '28%');
+                    pager_ul.css('margin-left', '40%');
                     break;
                 case 1:
                     pager_ul.css('margin-left', '30%');
