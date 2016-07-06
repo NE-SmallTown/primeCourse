@@ -6,6 +6,7 @@
     margin-left: 25%;
 }
 .ne-pager .pagination > li {
+    cursor: pointer;
     display: inline-block;
 }
 .ne-pager .pageNumInfo {

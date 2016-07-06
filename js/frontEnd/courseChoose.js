@@ -200,6 +200,7 @@
             // 如果之前已经创建过这个类别的面板，直接显示即可
             if($createdUl.length > 0) {
                 $createdUl.css('display', 'block');
+                $createdUl.find('li.on').removeClass('on').siblings().removeClass('on');
 
                 return false;
             }

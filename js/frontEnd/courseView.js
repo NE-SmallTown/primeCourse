@@ -44,7 +44,7 @@
 					for(i = 0; i < cs_list.length; i++) {
 						cs_list_li = '<li>' +
 							'<a>' + cs_list[i].title + '</a>' +
-								'<span class="date">' + cs_list[i].createdAt + '</span>' +
+								'<span class="date">' + cs_list[i].editAt.substr(0, cs_list[i].editAt.indexOf('T')) + '</span>' +
 							'</li>';
 
 						$cs_list_ul.append(cs_list_li);

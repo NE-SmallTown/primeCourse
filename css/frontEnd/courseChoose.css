@@ -89,6 +89,7 @@ ul {
     line-height: 40px;
 }
 .toolbar-left a.active {
+    color: #fff;
     border: 1px solid #6595EF;
 
     background-color: #6595EF;

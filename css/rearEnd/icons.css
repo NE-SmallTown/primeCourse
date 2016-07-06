@@ -50,3 +50,25 @@
 .icon-roleAssign::before {
     content: "\e608";
 }
+
+.icon-search::before {
+    content: "\e60f";
+    position: absolute;
+    right: 10px;
+    top: -15px;
+    color: #709DF0;
+}
+.icon-modify::before {
+    position: relative;
+    content: "\e610";
+    right: 10px;
+    color: #709DF0;
+}
+.icon-delete::before {
+    content: "\e611";
+    position: relative;
+    margin-left: 10px;
+    right: 3px;
+    top: 1px;
+    color: #709DF0;
+}

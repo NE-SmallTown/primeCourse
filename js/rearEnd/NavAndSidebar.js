@@ -12,13 +12,13 @@
             '课程分类'     : 'icon-moduleManage',
             '文章管理'     : 'icon-articleManage',
             '审核文章'     : 'icon-articleReview',
-            '系统设置'     : 'icon-systemSetting',
             '权限管理'     : 'icon-authorityManage',
+            '系统设置'     : 'icon-systemSetting',
             '模块管理'     : 'icon-moduleManage',
+            '模块选项'     : 'icon-moduleManage',
             '用户管理'     : 'icon-userManage',
             '角色管理'     : 'icon-roleManage',
-            '角色分配'     : 'icon-roleAssign',
-            '网站内容管理'  : 'icon-courseManage'
+            '角色分配'     : 'icon-roleAssign'
         },
         moduleUrlMap = { // 模块id到模块url的映射
 
@@ -48,11 +48,8 @@
 
                 // 存储模块id
                 sessionStorage.currentModuleId = $(this).attr('data-moduleId');
-                // 取消之前的高亮，并给当前模块高亮
-                $('.sidebar-list li.active').removeClass('active');
-                $(this).addClass('active');
 
-                // 最后跳转到对应模块
+                // 然后跳转到对应模块
                 location.href = moduleUrlMap[$(this).attr('data-moduleId')];
             });
         }()),
@@ -84,7 +81,7 @@
                     li_lv2,
                     list_lv1 = data.list,
                     list_lv2,
-                    list_lv1_len = list.length,
+                    list_lv1_len = list_lv1.length,
                     list_lv2_len,
                     i,
                     j;
@@ -96,20 +93,19 @@
                                 '<i class="triangleRight"></i>' +
                              '</li>';
 
-                    list_lv2 = list_lv1.list;
+                    list_lv2 = list_lv1[i].list;
                     list_lv2_len = list_lv2.length;
+                    $ul_lv2 = $('<ul></ul>');
                     for(j = 0; j < list_lv2_len; j++) {
                         moduleUrlMap[list_lv2[j].id] = list_lv2[j].url;
 
-                        $ul_lv2 = $('<ul></ul>');
                         li_lv2 = '<li data-moduleId="' +  list_lv2[j].id + '">' +
                                     '<i class="icon iconfont ' + SIDEBARLIST_ICONS[list_lv2[j].name] + '"></i>' +
                                     '<span class="title">' + list_lv2[j].name + '</span>' +
                                  '</li>';
                         $ul_lv2.append(li_lv2);
                     }
-                    $(li_lv1).append($ul_lv2);
-                    $ul_lv1.append(li_lv1);
+                    $ul_lv1.append($(li_lv1).append($ul_lv2));
                 }
 
                 $('.sidebar-list').append($ul_lv1);
