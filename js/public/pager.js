@@ -232,39 +232,6 @@
             children('a').not(function() {
                 return $(this).hasClass('first') || $(this).hasClass('last');
             }).addClass('curPage');
-
-            // 为了美观，调整分页栏到左边的间距  (因为页码有多有少 )
-            var pager_ul = $wrap.find('.ne-pager ul');
-            switch(pager_ul.children().length - 4) {
-                case 10:
-                    pager_ul.css('margin-left', '20%');
-                    break;
-                case 9:
-                    pager_ul.css('margin-left', '21%');
-                    break;
-                case 8:
-                    pager_ul.css('margin-left', '22%');
-                    break;
-                case 7:
-                    pager_ul.css('margin-left', '23%');
-                    break;
-                case 6:
-                    pager_ul.css('margin-left', '24%');
-                    break;
-                case 5:
-                case 4:
-                    pager_ul.css('margin-left', '25%');
-                    break;
-                case 3:
-                    pager_ul.css('margin-left', '26%');
-                    break;
-                case 2:
-                    pager_ul.css('margin-left', '40%');
-                    break;
-                case 1:
-                    pager_ul.css('margin-left', '30%');
-                    break;
-            }
         }
 
         return new NE_Pager();

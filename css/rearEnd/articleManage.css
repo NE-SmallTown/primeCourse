@@ -1,0 +1,59 @@
+/* 公共样式 */
+ul {
+    padding: 0;
+}
+td a {
+    cursor: pointer;
+}
+
+.query-wrap form {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.query-wrap form .form-group {
+    margin-right: 10px;
+}
+.query-wrap form .form-group label {
+    margin-right: 5px;
+}
+.query-wrap form .form-group.has-feedback {
+    height: 54px;
+}
+[opt="modify"],
+[opt="modify"]:hover,
+[opt="modify"]:focus {
+    margin-left: 7px;
+    margin-right: 7px;
+
+    color: #40a2e0;
+}
+.neTable-tb-td .neTableTd-modify span {
+    margin-left: 5px;
+}
+[opt="delete"],
+[opt="delete"]:hover,
+[opt="delete"]:focus {
+    color: #40a2e0;
+}
+[opt="delete"] span {
+    margin-left: 5px;
+}
+table i.icon {
+    line-height: inherit;
+}
+
+/* 模态框 */
+.modal .form-horizontal .control-label {
+    padding-top: 10px;
+}
+.modal .modal-body .input-error {
+    margin-top: 5px;
+
+    color: red;
+}
+.modal .form-group:last-child button:first-child {
+    margin-left: 460px;
+}
+.modal .form-group button:nth-child(n + 2) {
+    margin-left: 16px;
+}
